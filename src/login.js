@@ -7,7 +7,7 @@ export const register = (db, { username, password, confirmation }) => {
   if (password !== confirmation) {
     return new Response(
       JSON.stringify(createFailedMessage("Passwords didn't match")),
-      { headers: { "Content-Type": "application/json" } },
+      { headers: { "Content-Type": "application/json" }, status: 404 },
     );
   }
   try {
@@ -18,6 +18,7 @@ export const register = (db, { username, password, confirmation }) => {
       JSON.stringify(createSuccessMessage("REGISTRATION SUCCESSFUL...")),
       {
         headers: { "Content-Type": "application/json" },
+        status: 200,
       },
     );
   } catch {
@@ -25,9 +26,40 @@ export const register = (db, { username, password, confirmation }) => {
       JSON.stringify(createFailedMessage("Username already exists")),
       {
         headers: { "Content-Type": "application/json" },
+        status: 404,
       },
     );
   }
+};
+
+export const login = (db, { username, password }) => {
+  const row = db.prepare(
+    `SELECT * FROM REGISTRATION WHERE username = '${username}'`,
+  ).get();
+  if (!row) {
+    return new Response(
+      JSON.stringify(createFailedMessage("username doesn't exists")),
+      {
+        headers: { "Content-Type": "application/json" },
+        status: 404,
+      },
+    );
+  }
+  if (row.password !== password) {
+    return new Response(
+      JSON.stringify(
+        createFailedMessage("The password you enterd is incorrect"),
+      ),
+      {
+        headers: { "Content-Type": "application/json" },
+        status: 404,
+      },
+    );
+  }
+  return new Response(
+    JSON.stringify(createSuccessMessage("LOGIN SUCCESSFUL...")),
+    { headers: { "Content-Type": "application/json" }, status: 200 },
+  );
 };
 
 // const db = initializeDB();
