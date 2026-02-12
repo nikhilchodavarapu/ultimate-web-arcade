@@ -5,10 +5,20 @@ import { assertEquals } from "@std/assert";
 
 const db = new DatabaseSync("database/test.db");
 beforeAll(() => {
-  db.exec(`CREATE TABLE REGISTRATION (
-  username TEXT PRIMARY KEY, 
-  password TEXT
-  )`);
+  db.exec(`
+    CREATE TABLE REGISTRATION (
+      username TEXT PRIMARY KEY, 
+      password TEXT
+    );
+  
+    CREATE TABLE SCORES (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT NOT NULL,
+      score INTEGER,
+      stars INTEGER,
+      FOREIGN KEY (username) REFERENCES REGISTRATION(username)
+    );
+  `);
 });
 
 describe("Testing registration", () => {

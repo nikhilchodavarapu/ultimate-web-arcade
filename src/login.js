@@ -12,7 +12,9 @@ export const register = (db, { username, password, confirmation }) => {
   }
   try {
     db.exec(
-      `INSERT INTO REGISTRATION (username, password) VALUES ('${username}', '${password}')`,
+      `INSERT INTO REGISTRATION (username, password) VALUES ('${username}', '${password}');
+      
+      INSERT INTO SCORES (username, score, stars) VALUES ('${username}', 0, 0);`,
     );
     return new Response(
       JSON.stringify(createSuccessMessage("REGISTRATION SUCCESSFUL...")),
