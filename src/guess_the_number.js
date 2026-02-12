@@ -1,4 +1,4 @@
-import { input } from '@inquirer/prompts';
+// import { input } from "@inquirer/prompts";
 
 const handle = (guess, actual) => {
   if (guess < actual) {
@@ -7,32 +7,34 @@ const handle = (guess, actual) => {
   if (guess > actual) {
     console.log(`your guess is high than the actual`);
   }
-}
+};
 
-const play = async (number) => {
+const play = () => {
+  const number = getRandomValue();
   let chances = 0;
   while (true) {
-    const userGuess = await input({ message: 'guess the number', required: true });
+    const userGuess = +prompt("Guess the number :");
     console.clear();
     if (parseInt(userGuess) === number) {
       console.log(`you guessed it right in ${chances} chances`);
-      console.log(`points scored: ${chances}`)
+      console.log(`points scored: ${100 - 5 * chances}`);
       return;
     }
     handle(parseInt(userGuess), number);
     chances++;
   }
-}
+};
 
 const getRandomValue = () => Math.floor(Math.random() * 100);
 
-const main = async () => {
-  const number = getRandomValue();
-  let playAgain = true; 
-  while (playAgain) {
-    await play(number);
-    playAgain = confirm('do you want to play again');
+const main = () => {
+  while (true) {
+    play();
+    const res = confirm("do you want to play again : ");
+    if (!res) {
+      break;
+    }
   }
-}
+};
 
 await main();
