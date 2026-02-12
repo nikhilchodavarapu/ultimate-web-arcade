@@ -7,8 +7,7 @@ describe("Testing registration", () => {
   const db = new DatabaseSync("database/test.db");
   beforeAll(() => {
     db.exec(`CREATE TABLE REGISTRATION (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE, 
+    username TEXT PRIMARY KEY, 
     password TEXT
     )`);
   });
