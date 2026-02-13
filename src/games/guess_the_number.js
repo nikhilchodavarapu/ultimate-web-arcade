@@ -3,6 +3,7 @@ import { register } from "../login.js";
 
 const displayFeedback = (guess, actual) => {
   if (guess < actual) {
+    ;
     console.log(`your guess is low than the actual`);
   }
   if (guess > actual) {
