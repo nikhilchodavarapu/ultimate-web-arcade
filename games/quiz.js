@@ -1,5 +1,5 @@
-import { initializeDB } from "../initialize-db.js";
-import { register } from "../login.js";
+import { initializeDB } from "../src/initialize-db.js";
+import { register } from "../src/login.js";
 
 // const gkQuestions = [
 //   {

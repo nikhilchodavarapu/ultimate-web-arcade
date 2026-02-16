@@ -1,4 +1,4 @@
-import { initializeDB } from "../initialize-db.js";
+import { initializeDB } from "../src/initialize-db.js";
 
 const getNextCard = () => {
   const randomNumber = Math.floor(Math.random() * 30);
